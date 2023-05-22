@@ -8,6 +8,20 @@ def screen():
     return Item("Монитор", 5000, 10)
 
 
+def test___repr__():
+    obj = Item("Монитор", 5000, 10)
+    assert repr(obj) == "Item('Монитор', 5000, 10)"
+
+
+def test___str__():
+    obj = Item("Монитор", 5000, 10)
+    assert str(obj) == 'Монитор'
+
+
+def test_name(screen):
+    assert screen.name == 'Монитор'
+
+
 def test_calculate_total_price(screen):
     assert screen.calculate_total_price() == 50000
 
