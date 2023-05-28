@@ -1,6 +1,7 @@
 """Здесь надо написать тесты с использованием pytest для модуля item."""
 import pytest
 from src.item import Item
+from src.phone import Phone
 
 
 @pytest.fixture
@@ -8,18 +9,26 @@ def screen():
     return Item("Монитор", 5000, 10)
 
 
-def test___repr__():
-    obj = Item("Монитор", 5000, 10)
-    assert repr(obj) == "Item('Монитор', 5000, 10)"
+def test___repr__(screen):
+    assert repr(screen) == "Item('Монитор', 5000, 10)"
 
 
-def test___str__():
-    obj = Item("Монитор", 5000, 10)
-    assert str(obj) == 'Монитор'
+def test___str__(screen):
+    assert str(screen) == 'Монитор'
 
 
-def test_name(screen):
+def test___add__(screen):
+    phone = Phone('Nokia3320', 500, 2, 1)
+    assert screen + phone == 12
+
+
+def test_name():
+    screen = Item("Монитор", 5000, 10)
     assert screen.name == 'Монитор'
+    screen.name = 'Samsung'
+    assert screen.name == 'Samsung'
+    screen.name = 'Большой_Монитор'
+    assert screen.name != 'Большой_Монитор'
 
 
 def test_calculate_total_price(screen):
