@@ -52,11 +52,12 @@ class Item:
         if len(new_name) <= 10:
             self.__name = new_name
         else:
-            raise Exception('Длина наименования товара превышает 10 символов')
+            raise ValueError('Длина наименования товара превышает 10 символов')
 
     @classmethod
     def instantiate_from_csv(cls):
-        with open('src/items.csv', newline='', encoding='windows-1251') as f:
+        with open('src/items.csv',
+                  newline='', encoding='windows-1251') as f:
             reader = csv.reader(f)
             next(reader)
             for row in reader:

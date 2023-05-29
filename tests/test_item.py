@@ -27,8 +27,8 @@ def test_name():
     assert screen.name == 'Монитор'
     screen.name = 'Samsung'
     assert screen.name == 'Samsung'
-    screen.name = 'Большой_Монитор'
-    assert screen.name != 'Большой_Монитор'
+    with pytest.raises(ValueError):
+        screen.name = 'Большой_Монитор'
 
 
 def test_calculate_total_price(screen):
@@ -39,6 +39,7 @@ def test_apply_discount(screen):
     Item.pay_rate = 0.5
     assert screen.apply_discount() is None
     assert screen.price == 2500
+    Item.pay_rate = 1
 
 
 def test_instantiate_from_csv():
