@@ -56,14 +56,19 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
-        with open('src/items.csv',
-                  newline='', encoding='windows-1251') as f:
-            reader = csv.reader(f)
-            next(reader)
-            for row in reader:
-                name, price, quantity = row[0], float(row[1]), int(row[2])
-                item = Item(name, price, quantity)
-                Item.all.append(item)
+        try:
+            with open('src/items.csv', newline='', encoding='windows-1251') as f:
+                reader = csv.reader(f)
+                next(reader)
+                for row in reader:
+                    name, price, quantity = row[0], float(row[1]), int(row[2])
+                    item = Item(name, price, quantity)
+                    Item.all.append(item)
+
+        except FileNotFoundError:
+            raise FileNotFoundError("Отсутствует файл item.csv")
+        except (IndexError, ValueError):
+            raise InstantiateCSVError("InstantiateCSVError: Файл item.csv поврежден")
 
     @staticmethod
     def string_to_number(string):
@@ -71,3 +76,7 @@ class Item:
             float_string = float(string)
             return int(float_string)
         return int(string)
+
+
+class InstantiateCSVError(Exception):
+    pass
